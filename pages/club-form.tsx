@@ -1,10 +1,10 @@
 import React from 'react'
-import CF from '@/components/ClubForm';
+import ClubForm from '@/components/Club/ClubForms';
 
 function ClubForms() {
   return (
     <div>
-        <CF />
+        <ClubForm />
     </div>
   )
 }
