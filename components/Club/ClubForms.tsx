@@ -1,11 +1,11 @@
 import React, {useState, useEffect} from 'react'
 import { Formik, FieldArray } from 'formik'
-import { FormControl, FormLabel, Input, Box, Flex, Button, Select } from '@chakra-ui/react'
+import { FormControl, FormLabel, Input, Box, Flex, Button, Select, Center } from '@chakra-ui/react'
 import { Clubs } from './clubs'
-import { ChevronDownIcon } from '@chakra-ui/icons'
+import { AddIcon, ChevronDownIcon } from '@chakra-ui/icons'
 import { getClubData } from './backend'
 
-function ClubForm() {
+function ClubForm({path}:{path:string | undefined}) {
 
   const initialValues = {
     clubId: "",
@@ -90,7 +90,9 @@ function ClubForm() {
                 name="socials"
                 render = {({remove, push}) => (
                   <>
-                  <Button colorScheme='blue' onClick={() => push({link: ""})}>Add Social Media URL</Button>
+                  <Center>
+                    <Button colorScheme='blue' onClick={() => push({link: ""})} leftIcon={<AddIcon />}>Add Social Media URL</Button>
+                  </Center>
                     {
                       values.socials.map((item: any, index:any) => (
                         <Box key={index} padding="2rem">
@@ -113,14 +115,16 @@ function ClubForm() {
                 name="coordinators"
                 render = {({remove, push}) => (
                   <>
-                  <Button colorScheme='blue' onClick={() => push(
-                     {
-                      name: "",
-                      email: "",
-                      phone: "",
-                      imageLink: ""
-                    }
-                  )}>Add Coordinators</Button>
+                  <Center>
+                    <Button colorScheme='blue' onClick={() => push(
+                      {
+                        name: "",
+                        email: "",
+                        phone: "",
+                        imageLink: ""
+                      }
+                    )} leftIcon={<AddIcon />}>Add Coordinators</Button>
+                  </Center>
                     {
                       values.coordinators.map((item: any, index:any) => (
                           <Box key={index} padding="2rem">
@@ -156,7 +160,7 @@ function ClubForm() {
                 )}
                 />
               </Box>
-              <Flex gap="10px" mt="20px">
+              <Flex gap="10px" mt="20px" justifyContent="center">
                 <Button type="submit" size={"md"} colorScheme="red">
                   {
                     values === null ?

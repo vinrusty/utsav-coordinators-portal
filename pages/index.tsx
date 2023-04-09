@@ -1,6 +1,7 @@
 import Head from 'next/head'
 import { Inter } from 'next/font/google'
 import { Avatar, Button, Flex, Heading } from '@chakra-ui/react'
+import LoggedIn from '@/components/Landing/LoggedIn'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -15,11 +16,12 @@ export default function Home() {
       </Head>
       <main>
         <div>
-          <Flex height="100vh" alignItems="center" justifyContent="center" direction="column">
+          {/* <Flex height="100vh" alignItems="center" justifyContent="center" direction="column">
               <Avatar size="2xl" name="utsav-logo" src="/images/utsav-logo.png" />
               <Heading mt="2rem">Coordinators Portal</Heading>
               <Button mt="2rem">Sign up with Google</Button>
-          </Flex>
+          </Flex> */}
+          <LoggedIn />
         </div>
       </main>
     </>
