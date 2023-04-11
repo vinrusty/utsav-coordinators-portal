@@ -1,11 +1,11 @@
 import React, {useState, useEffect} from 'react'
 import { Formik, FieldArray } from 'formik'
-import { FormControl, FormLabel, Input, Box, Flex, Button, Select, Center } from '@chakra-ui/react'
+import { FormControl, FormLabel, Input, Box, Flex, Button, Select, Center, useColorMode, ColorMode } from '@chakra-ui/react'
 import { Clubs } from './clubs'
 import { AddIcon, ChevronDownIcon } from '@chakra-ui/icons'
 import { getClubData } from './backend'
 
-function ClubForm({path}:{path:string | undefined}) {
+function ClubForm({path}:{path:string|undefined}) {
 
   const initialValues = {
     clubId: "",
@@ -29,9 +29,10 @@ function ClubForm({path}:{path:string | undefined}) {
   }
 
   const [values, setValues] = useState(null);
+  const {colorMode} = useColorMode();
 
   useEffect(() => {
-    getClubData("ise")
+    getClubData(path)
     .then((res:any) => {
       setValues({...res})
     })
@@ -85,7 +86,8 @@ function ClubForm({path}:{path:string | undefined}) {
                 </Box>
               </Flex>
               <Flex direction="column" alignItems="center" justifyContent="center">
-              <Box padding="2rem" backgroundColor="gray.200" borderRadius="10px" width="70%" mt="20px">
+              <Box padding="2rem" borderRadius="10px" width="70%" mt="20px"
+              backgroundColor={colorMode === "dark" ? "#161a21":"gray.300"}>
               <FieldArray
                 name="socials"
                 render = {({remove, push}) => (
@@ -110,7 +112,8 @@ function ClubForm({path}:{path:string | undefined}) {
                 )}
                />
                </Box>
-               <Box padding="2rem" backgroundColor="gray.200" borderRadius="10px" width="70%" mt="20px">
+               <Box padding="2rem" borderRadius="10px" width="70%" mt="20px" 
+               background={colorMode === "dark" ? "#161a21":"gray.300"}>
               <FieldArray
                 name="coordinators"
                 render = {({remove, push}) => (

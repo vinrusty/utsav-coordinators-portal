@@ -51,10 +51,7 @@ export default function Home({ data }: any) {
           <ColorModeScript initialColorMode={theme.config.initialColorMode} />
 
 
-          <LoggedIn />
-          <Button className="toggleMode" onClick={toggleColorMode}>
-            Toggle {colorMode === 'light' ? 'Dark' : 'Light'}
-          </Button>
+          <LoggedIn data={data} />
         </div>
       </main>
     </>

@@ -52,7 +52,7 @@ const put = async (apiUrl: string, body: Object) => {
     }
 }
 
-export const getClubData=(clubid: string)=>{
+export const getClubData=(clubid: string|undefined)=>{
     return new Promise((resolve,reject)=>{
         post("/api/club/"+clubid,{})
         .then((vals)=>{

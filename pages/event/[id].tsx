@@ -1,9 +1,9 @@
 import EventForms from '@/components/Events/EventForms'
 import Header from '@/components/Header/Header'
-import { GetServerSideProps } from 'next';
-import { AppContext } from 'next/app';
+import Navbar from '@/components/Header/Navbar';
 import { useRouter } from 'next/router'
 import React from 'react'
+import { useColorMode } from '@chakra-ui/react';
 
 export async function getServerSideProps(context:any){
   const { id } = context.query
@@ -34,11 +34,13 @@ function New({data}:any) {
 
   const router = useRouter();
   const { id } = router.query;
+  const { colorMode, toggleColorMode } = useColorMode()
 
   return (
     <div>
-        <Header path={id?.toString()} title={id?.toString().toUpperCase()} />
-        <EventForms data={data} />
+      <Navbar colorMode={colorMode} toggleColorMode={toggleColorMode} />
+      <Header path={id?.toString()} title={id?.toString().toUpperCase()} />
+      <EventForms data={data} />
     </div>
   )
 }

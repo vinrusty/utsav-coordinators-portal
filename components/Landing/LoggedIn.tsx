@@ -4,6 +4,7 @@ import Link from 'next/link'
 import React from 'react'
 import theme from '@/components/Theme/theme'
 import { mode } from "@chakra-ui/theme-tools";
+import Navbar from '../Header/Navbar'
 
 
     const getClubEvents=(club:string,data:any):Array<string | any>=>{
@@ -16,10 +17,12 @@ import { mode } from "@chakra-ui/theme-tools";
         
     }
 
+    
 function LoggedIn({data}:any) {
-    // const { colorMode, toggleColorMode } = useColorMode()
+    const { colorMode, toggleColorMode } = useColorMode()
   return (
     <div>
+        <Navbar colorMode={colorMode} toggleColorMode={toggleColorMode} />
         <Box width="100%" padding="2rem">
             <Heading size="md" color="teal.200">Club and Event Coordinators Dashboard</Heading>
             <List mt="2rem" ml="2rem" color="gold">
@@ -43,7 +46,7 @@ function LoggedIn({data}:any) {
                     getClubEvents("ise", data).map((item, index) => (
                         <ListItem mt="20px" key={index}>
                             <ListIcon as={CheckCircleIcon} color="gold" />
-                            <Link href="/event/ISEASD">{item}</Link>
+                            <Link href={`/event/${item}`}>{item}</Link>
                         </ListItem>
                     ))
                 }

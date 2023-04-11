@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Field, Form, Formik, FieldArray } from 'formik'
-import { Box, Button, Center, Checkbox, Flex, FormControl, FormLabel, Input, Select, Text } from '@chakra-ui/react'
+import { Box, Button, Center, Checkbox, Flex, FormControl, FormLabel, Input, Select, Text, useColorMode } from '@chakra-ui/react'
 import { Clubs } from '../Club/clubs'
 import { AddIcon, ChevronDownIcon } from '@chakra-ui/icons'
 import { Category } from './Category'
@@ -72,7 +72,7 @@ function EventForms({data}: Object|any) {
         }
     }, [])
 
-    console.log(preValues)
+    const { colorMode } = useColorMode();
 
   return (
     <Box padding="2rem">
@@ -230,7 +230,7 @@ function EventForms({data}: Object|any) {
                                 </Select>
                             </FormControl>
                         </Flex>
-                        <Box padding="2rem" backgroundColor="gray.200" borderRadius="10px" width="100%" mt="20px">
+                        <Box padding="2rem" backgroundColor={colorMode === "dark" ? "#161a21":"gray.200"} borderRadius="10px" width="100%" mt="20px">
                             <FieldArray
                                 name="sponsorDetails"
                                 render = {({remove, push}) => (
@@ -285,7 +285,7 @@ function EventForms({data}: Object|any) {
                             preValues === null ?
                             <></>
                             :
-                            <Box padding="2rem" backgroundColor="gray.200" borderRadius="10px" width="100%" mt="20px">
+                            <Box padding="2rem" backgroundColor={colorMode === "dark" ? "#161a21":"gray.200"} borderRadius="10px" width="100%" mt="20px">
                                 <FieldArray
                                     name="resourcePerson"
                                     render = {({remove, push}) => (
@@ -330,7 +330,7 @@ function EventForms({data}: Object|any) {
                                     />
                             </Box>
                         }
-                        <Box padding="2rem" backgroundColor="gray.200" borderRadius="10px" width="100%" mt="20px">
+                        <Box padding="2rem" backgroundColor={colorMode === "dark" ? "#161a21":"gray.200"} borderRadius="10px" width="100%" mt="20px">
                             <FieldArray
                                 name="eventParticipation"
                                 render = {({remove, push}) => (
@@ -366,7 +366,7 @@ function EventForms({data}: Object|any) {
                                                     </Select>
                                                 </Box>
                                             </FormControl>
-                                            <Text color="yellow.300">
+                                            <Text color="yellow.400">
                                             If the event is an individual event, then the number of participants should be 1.
                                             Ignore the Minimum and Maximum number of participants if the event is an individual event.
                                             If the event is a team event, then add minimum and maximum number of participants.
@@ -391,7 +391,7 @@ function EventForms({data}: Object|any) {
                                 )}
                                 />
                         </Box>
-                        <Box padding="2rem" backgroundColor="gray.200" borderRadius="10px" width="100%" mt="20px">
+                        <Box padding="2rem" backgroundColor={colorMode === "dark" ? "#161a21":"gray.200"} borderRadius="10px" width="100%" mt="20px">
                             <FieldArray
                                 name="rules"
                                 render = {({remove, push}) => (
@@ -422,7 +422,7 @@ function EventForms({data}: Object|any) {
                                 )}
                                 />
                         </Box>
-                        <Box padding="2rem" backgroundColor="gray.200" borderRadius="10px" width="100%" mt="20px">
+                        <Box padding="2rem" backgroundColor={colorMode === "dark" ? "#161a21":"gray.200"} borderRadius="10px" width="100%" mt="20px">
                             <FieldArray
                                 name="prize"
                                 render = {({remove, push}) => (
@@ -453,7 +453,7 @@ function EventForms({data}: Object|any) {
                                 )}
                                 />
                         </Box>
-                        <Box padding="2rem" backgroundColor="gray.200" borderRadius="10px" width="100%" mt="20px">
+                        <Box padding="2rem" backgroundColor={colorMode === "dark" ? "#161a21":"gray.200"} borderRadius="10px" width="100%" mt="20px">
                         <FieldArray
                             name="coordinators"
                             render = {({remove, push}) => (
