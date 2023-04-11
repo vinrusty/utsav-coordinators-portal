@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Field, Form, Formik, FieldArray } from 'formik'
 import { Box, Button, Center, Checkbox, Flex, FormControl, FormLabel, Input, Select, Text } from '@chakra-ui/react'
 import { Clubs } from '../Club/clubs'
@@ -6,7 +6,7 @@ import { AddIcon, ChevronDownIcon } from '@chakra-ui/icons'
 import { Category } from './Category'
 import { EventType, eventParticipationType, status } from './EventType'
 
-function EventForms() {
+function EventForms({data}: Object|any) {
 
     const initialValues = {
         eventName: "",
@@ -63,11 +63,16 @@ function EventForms() {
     }
 
     const [preValues, setPreValues] = useState(null)
+    useEffect(() => {
+        setPreValues(data.eventCoordinator)
+    }, [])
+
+    console.log(preValues)
 
   return (
     <Box padding="2rem">
-        <Formik initialValues={initialValues} onSubmit={(data) => {
-            console.log(data)
+        <Formik initialValues={preValues || initialValues} enableReinitialize onSubmit={(data) => {
+            
         }}>
             {({values, isSubmitting, handleChange}) => (
                 <Form>
@@ -91,22 +96,22 @@ function EventForms() {
                                 <Input value={values.description} onChange={handleChange} type="text" name="description" disabled={false} placeholder="Description" _placeholder={{color: 'whitealpha.600'}} />
                             </Box>
                         </FormControl>
-                        <Box>
+                        <Box mt="10px">
                             <FormControl isRequired={true}>
                             <FormLabel color = {"teal.300"} >Club/Org</FormLabel>
-                            <Select borderRadius={"md"} onChange={handleChange} name="club" variant = "outline" disabled={false} icon = {<ChevronDownIcon/>}>
+                            <Select value={values.club} borderRadius={"md"} onChange={handleChange} name="club" variant = "outline" disabled={false} icon = {<ChevronDownIcon/>}>
                                 <option value="">Select Club</option>
                                 {Object.keys(Clubs).map((option:string,index)=>{
-                                return <option color="white" key={index}>{option}</option>
+                                return <option color="white" value={Clubs[option]} key={index}>{option}</option>
                                 })}
                             </Select>
                             
                             </FormControl>
                         </Box>
-                        <Box>
+                        <Box mt="10px">
                             <FormControl isRequired={true}>
                             <FormLabel color = {"teal.300"} >Category</FormLabel>
-                            <Select borderRadius={"md"} onChange={handleChange} name="category" variant = "outline" disabled={false} icon = {<ChevronDownIcon/>}>
+                            <Select value={values.category} borderRadius={"md"} onChange={handleChange} name="category" variant = "outline" disabled={false} icon = {<ChevronDownIcon/>}>
                                 <option value="">Select Category</option>
                                 {Category.map((option:string,index)=>{
                                 return <option color="white" key={index} value={Category[index]}>{option}</option>
@@ -121,7 +126,7 @@ function EventForms() {
                                 {
                                     EventType.map((type, index) => (
                                         <div key={index} style={{marginTop: "10px"}}>
-                                            <Checkbox name="eventType" value={type}>{type}</Checkbox>
+                                            <Checkbox name="eventType" value={type} isChecked={values.eventType.filter((i) => i === type)[0] === type}>{type}</Checkbox>
                                         </div>
                                     ))
                                 }
@@ -149,7 +154,7 @@ function EventForms() {
                             </Box>
                         </FormControl>
                         {
-                            values.isRegIeee == "false" ?
+                            Boolean(values.isRegIeee) == false ?
                             <></>
                             :
                             <Box paddingLeft="2rem">
@@ -182,7 +187,7 @@ function EventForms() {
                         <Flex gap="20px" mt="20px" alignItems="center" justifyContent="center">
                             <FormControl isRequired={false}>
                                 <FormLabel color={"yellow.300"}>Stop Website Registrations</FormLabel>
-                                <Select borderRadius={"md"} onChange={handleChange} name="stoponlineregs" variant = "outline" disabled={false} icon = {<ChevronDownIcon/>}>
+                                <Select value={values.stoponlineregs} borderRadius={"md"} onChange={handleChange} name="stoponlineregs" variant = "outline" disabled={false} icon = {<ChevronDownIcon/>}>
                                     <option value="">Status</option>
                                     {
                                         status.map((state, i) => (
@@ -195,7 +200,7 @@ function EventForms() {
                             </FormControl>
                             <FormControl isRequired={false}>
                                 <FormLabel color={"yellow.300"}>Stop Spot Registrations</FormLabel>
-                                <Select borderRadius={"md"} onChange={handleChange} name="stopspotregs" variant = "outline" disabled={false} icon = {<ChevronDownIcon/>}>
+                                <Select value={values.stopspotregs} borderRadius={"md"} onChange={handleChange} name="stopspotregs" variant = "outline" disabled={false} icon = {<ChevronDownIcon/>}>
                                     <option value="">Status</option>
                                     {
                                         status.map((state, i) => (
@@ -208,7 +213,7 @@ function EventForms() {
                             </FormControl>
                             <FormControl isRequired={false}>
                                 <FormLabel color={"yellow.300"}>Stop All Registrations</FormLabel>
-                                <Select borderRadius={"md"} onChange={handleChange} name="stopallregs" variant = "outline" disabled={false} icon = {<ChevronDownIcon/>}>
+                                <Select value={values.stopallregs} borderRadius={"md"} onChange={handleChange} name="stopallregs" variant = "outline" disabled={false} icon = {<ChevronDownIcon/>}>
                                     <option value="">Status</option>
                                     {
                                         status.map((state, i) => (
@@ -237,7 +242,7 @@ function EventForms() {
                                     leftIcon={<AddIcon />}>Sponsor Details</Button>
                                 </Center>
                                     {
-                                    values.sponsorDetails.map((item: any, index:any) => (
+                                    values.sponsorDetails && values.sponsorDetails.map((item: any, index:any) => (
                                         <Box key={index} padding="2rem">
                                             <FormControl isRequired={true}>
                                                 <Box mt="10px">
@@ -344,7 +349,7 @@ function EventForms() {
                                             <FormControl isRequired={true}>
                                                 <Box mt="10px">
                                                     <FormLabel color={"teal.200"}>Indivisual/Team Event</FormLabel>
-                                                    <Select value={item.participationType} borderRadius={"md"} onChange={handleChange} name={`eventParticipation.${index}.participationType`} variant = "outline" disabled={false} icon = {<ChevronDownIcon/>}>
+                                                    <Select value={values.eventParticipation[index].participationType} borderRadius={"md"} onChange={handleChange} name={`eventParticipation.${index}.participationType`} variant = "outline" disabled={false} icon = {<ChevronDownIcon/>}>
                                                         <option value="">Select Event</option>
                                                         {
                                                             eventParticipationType.map((state, i) => (

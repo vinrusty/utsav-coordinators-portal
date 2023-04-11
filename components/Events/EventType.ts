@@ -14,5 +14,5 @@ export const status = [
 
 export const eventParticipationType = [
     "Team Event",
-    "Indivisual"
+    "Individual"
 ]

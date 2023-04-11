@@ -5,7 +5,26 @@ import LoggedIn from '@/components/Landing/LoggedIn'
 
 const inter = Inter({ subsets: ['latin'] })
 
-export default function Home() {
+export async function getStaticProps() {
+  const res = await fetch("http://localhost:5500/api/getEvents",{
+      method: "POST",
+      headers: {
+          "Content-Type": "Application/json",
+          "Authorization": "Bearer 346433c5cdf018029041"
+      },
+      body: JSON.stringify({email: "vineethh.is20@bmsce.ac.in"})
+  });
+  const data = await res.json()
+  return {
+      props: {
+          data,
+      }
+  }
+}
+
+
+export default function Home({ data }: any) {
+
   return (
     <>
       <Head>
@@ -21,7 +40,7 @@ export default function Home() {
               <Heading mt="2rem">Coordinators Portal</Heading>
               <Button mt="2rem">Sign up with Google</Button>
           </Flex> */}
-          <LoggedIn />
+          <LoggedIn data={data} />
         </div>
       </main>
     </>

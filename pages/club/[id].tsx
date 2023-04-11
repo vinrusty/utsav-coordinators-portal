@@ -3,6 +3,7 @@ import ClubForm from '@/components/Club/ClubForms';
 import Header from '@/components/Header/Header';
 import { useRouter } from 'next/router';
 
+
 function ClubForms() {
 
   const router = useRouter();
