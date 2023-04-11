@@ -1,10 +1,13 @@
 import { CheckCircleIcon } from '@chakra-ui/icons'
-import { Box, Heading, List, ListIcon, ListItem } from '@chakra-ui/react'
+import { Box, Heading, List, ListIcon, ListItem , ColorModeScript, useColorMode} from '@chakra-ui/react'
 import Link from 'next/link'
 import React from 'react'
+import theme from '@/components/Theme/theme'
+import { mode } from "@chakra-ui/theme-tools";
+
 
 function LoggedIn({data}:any) {
-
+    // const { colorMode, toggleColorMode } = useColorMode()
     console.log(data)
   return (
     <div>
