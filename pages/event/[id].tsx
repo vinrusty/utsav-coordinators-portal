@@ -7,6 +7,13 @@ import React from 'react'
 
 export async function getServerSideProps(context:any){
   const { id } = context.query
+  if(id === "new"){
+    return {
+      props: {
+        data: null
+      }
+    }
+  }
   const res = await fetch("http://localhost:5500"+`/api/event/${id}`, {
     method: "POST",
     headers: {

@@ -64,7 +64,12 @@ function EventForms({data}: Object|any) {
 
     const [preValues, setPreValues] = useState(null)
     useEffect(() => {
-        setPreValues(data.eventCoordinator)
+        if(data === null){
+            setPreValues(null)
+        }
+        else{
+            setPreValues(data?.eventCoordinator)
+        }
     }, [])
 
     console.log(preValues)
