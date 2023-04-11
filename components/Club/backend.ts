@@ -30,7 +30,7 @@ const post = async (apiUrl: string, body: Object) => {
 const put = async (apiUrl: string, body: Object) => {
     try{
         const data = await axios.put(URL+apiUrl, {
-            email: "vineethh.is20@bmsce.ac.in",
+            email: "shreyas.cs20@bmsce.ac.in",
             ...body
         },{
             headers: {
